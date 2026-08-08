@@ -1,0 +1,6 @@
+risk_levels:
+  high: 0.7
+  medium : 0.4
+
+early_engagement:
+  min_early_click : 50
