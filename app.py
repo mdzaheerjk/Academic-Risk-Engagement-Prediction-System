@@ -1,4 +1,15 @@
 import streamlit as st
+import importlib
+import utils.validators
+import core.feature_builder
+import core.recommender
+import core.predictor
+
+importlib.reload(utils.validators)
+importlib.reload(core.feature_builder)
+importlib.reload(core.recommender)
+importlib.reload(core.predictor)
+
 from core.predictor import predict_and_recommend
 
 
@@ -45,8 +56,8 @@ early_interaction=st.slider(
 early_active_days=st.slider(
     "Days engaged during early course period",
     min_value=0,
-    max_value=5000,
-    value=80,
+    max_value=30,
+    value=10,
     help=(
         "Number of distinct days the student was active early in the course, even if activity was brief."
     )
@@ -62,7 +73,7 @@ first_activity_day=st.number_input(
 )
 
 pre_course_engaged=st.radio(
-    "Did the Student With the course before the official start?",
+    "Did the student engage with the course before the official start?",
     options=[0,1],
     format_func=lambda x:"Yes" if x==1 else "No",
     help="Includes any interaction before the course start date."  
@@ -72,7 +83,7 @@ student_input={
     'total_click':engagement_level,
     'early_click':early_interaction,
     'early_active_days':early_active_days,
-    'first_active_day':first_activity_day,
+    "first_activity_day": first_activity_day,
     'pre_course_engaged':pre_course_engaged
 }
 
